@@ -1,0 +1,34 @@
+<div id="myCarousel" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li th:each="carousel, idx : ${carousel}"
+            th:class="${idx.first ? 'active' : ''}"
+            data-target="#myCarousel" data-slide-to="idx" class="active"></li>
+    </ol>
+
+    <tr th:each="item : ${users}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.firstName}"></td>
+        <td th:text="${item.lastName}"></td>
+        <td th:text="${item.middleName}"></td>
+    </tr>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div th:each="carousel, idx : ${carousel}"
+             th:class="${idx.first ? 'item active' : 'item'}">
+            <div class="fill" th:style="'background-image:url('+ @{/image/} +${carousel.img.fileNameWithExtention} + ');'"></div>
+            <div class="carousel-caption">
+                <h1 th:text="${carousel.title}"></h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="icon-next"></span>
+    </a>
+</div>

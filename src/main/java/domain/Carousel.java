@@ -13,7 +13,7 @@ public class Carousel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Image img;
     @NotNull
     private String title;

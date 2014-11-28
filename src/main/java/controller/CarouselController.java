@@ -5,10 +5,7 @@ import dao.ImageDAO;
 import domain.Carousel;
 import domain.Image;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -25,8 +22,7 @@ public class CarouselController {
     }
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public String handleFileUpload(@RequestParam("name") String name,
-                                                 @RequestParam("file") MultipartFile file,
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                                  @RequestParam("title") String title){
         if (!file.isEmpty()) {
             try {
@@ -37,13 +33,18 @@ public class CarouselController {
                 imageDAO.save(img);
                 Carousel carousel = new Carousel(img,title);
                 carouselDAO.save(carousel);
-                return "You successfully uploaded " + name + " into " + name + "-uploaded !";
+                return "You successfully uploaded ";
             } catch (Exception e) {
-                return "You failed to upload " + name + " => " + e.getMessage();
+                return "You failed to upload ";
             }
         } else {
-            return "You failed to upload " + name + " because the file was empty.";
+            return "You failed to upload because the file was empty.";
         }
     }
 
+    @RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+    public String deleteCarousel(@PathVariable long id) {
+        carouselDAO.delete(id);
+        return "redirect:admin";
+    }
 }

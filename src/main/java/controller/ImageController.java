@@ -16,7 +16,7 @@ public class ImageController {
     @RequestMapping(value="/{name:.+}", method=RequestMethod.GET)
     public byte[] getImageByName(@PathVariable String name) {
         System.out.println(name);
-        return imageDAO.findByFileExtension(name).getData();
+        return imageDAO.findByFileNameWithExtention(name).getData();
     }
 
 }

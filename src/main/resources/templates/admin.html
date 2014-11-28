@@ -18,11 +18,32 @@
 </head>
 <body>
 <form action="uploadSuccess.html" th:action="@{/carousel/upload}" method="post" enctype="multipart/form-data">
-    <p><b>Ваше имя:</b><br>
+    <p><b>TITLE:</b>
         <input type="text" name="title"/>
     </p>
-    <input type="text" name="name" />
+    <input type="file" name="file" /><br/>
     <input type="submit" />
 </form>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>File</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="carouselItem : ${carousel}">
+        <td th:text="${carouselItem.id}"></td>
+        <td th:text="${carouselItem.title}"></td>
+        <td th:text="${carouselItem.img.fileNameWithExtention}"></td>
+        <td>
+            <a th:href="@{/carousel/delete/} + ${carouselItem.id}"><span>Delete</span></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
